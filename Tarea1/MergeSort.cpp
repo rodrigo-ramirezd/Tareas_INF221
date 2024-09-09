@@ -1,5 +1,4 @@
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
 
 void merge(vector<int>& arr, int left, int mid, int right) {
@@ -50,9 +49,37 @@ void mergeSort(vector<int>& arr, int left, int right) {
 }
 
 int main() {
-    vector<int> arr = {12, 11, 13, 5, 6, 7};
-    mergeSort(arr, 0, arr.size() - 1);
-    for (int i : arr)
-        cout << i << " ";
+    // Asignar elementos al arreglo de tamaño "size".
+    int size, integer;
+    cin >> size;
+    vector<int> arreglo(size);
+    for(int i = 0; i < size; i++){
+        cin >> integer;
+        arreglo[i] = integer;
+    }
+
+    // inicio tiempo.
+    auto inicio = chrono::high_resolution_clock::now();
+    
+    mergeSort(arreglo, 0, arreglo.size() - 1);
+
+    // fin tiempo.
+    auto fin = chrono::high_resolution_clock::now();
+
+    // Imprimir tiempo de ejecucion de la funcion "SelectionSort".
+    chrono::duration<double, milli> duracion = fin - inicio;
+    cout << "Tiempo de ejecucion de SelectionSort: " << duracion.count() << endl;
+
+    // Imprimir resultado para comprobar el ordenamiento en "resultado.txt".
+/*    ofstream archivosalida("resultado.txt");
+    if(!archivosalida){
+        cerr << "Error al abrir el archivo para escribir" << endl;
+        return -1;
+    }
+
+    for (int i : arreglo){
+        archivosalida << i << endl;
+    }
+    archivosalida.close();*/
     return 0;
 }
