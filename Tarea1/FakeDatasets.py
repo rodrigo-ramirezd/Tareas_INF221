@@ -69,3 +69,11 @@ with open("Tarea1/Algoritmos_Ordenamiento/Lista_Ordenada_5.txt", 'w') as file:
 # -----------------------------------------------------------------------------------------
 
 # Crear Datasets para algoritmo de multiplicacion de matrices.
+# MATRICES DE DIFERENTE DIMENSION NxM:
+# Arreglo de arreglos de tamaño 11x15:
+with open("Tarea1/Algoritmos_Ordenamiento/Lista_Ordenada_5.txt", 'w') as file:
+    file.write("200000\n")
+    for i in range(200000):
+        file.write(f"{i}\n")
+
+# MATRICES CUADRAS NxN:
