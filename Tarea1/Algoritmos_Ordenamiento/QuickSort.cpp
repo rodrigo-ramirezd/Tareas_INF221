@@ -44,10 +44,10 @@ int main() {
 
     // Imprimir tiempo de ejecucion de la funcion "SelectionSort".
     chrono::duration<double, milli> duracion = fin - inicio;
-    cout << "Tiempo de ejecucion de SelectionSort: " << duracion.count() << endl;
+    cout << "Tiempo de ejecucion: " << duracion.count() << endl;
 
     // Imprimir resultado para comprobar el ordenamiento en "resultado.txt".
-/*    ofstream archivosalida("resultado.txt");
+    ofstream archivosalida("resultado.txt");
     if(!archivosalida){
         cerr << "Error al abrir el archivo para escribir" << endl;
         return -1;
@@ -56,6 +56,6 @@ int main() {
     for (int i : arreglo){
         archivosalida << i << endl;
     }
-    archivosalida.close();*/
+    archivosalida.close();
     return 0;
 }
