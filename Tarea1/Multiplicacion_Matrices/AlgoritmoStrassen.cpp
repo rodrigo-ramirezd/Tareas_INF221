@@ -1,5 +1,5 @@
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
+
 using namespace std;
 
 typedef vector<vector<int>> Matrix;
@@ -86,27 +86,50 @@ Matrix strassen(const Matrix& A, const Matrix& B) {
 }
 
 int main() {
-    int n = 4; // Tamaño de la matriz (debe ser potencia de 2)
-    
-    Matrix A = {{1, 2, 3, 4},
-                {5, 6, 7, 8},
-                {9, 10, 11, 12},
-                {13, 14, 15, 16}};
+    // Leer y llenar matrices NxM:
+    int N, M, integer;
+    cin >> N >> M;
+    Matrix A(N, vector<int>(M));
+    Matrix B(M, vector<int>(N));
 
-    Matrix B = {{1, 0, 0, 0},
-                {0, 1, 0, 0},
-                {0, 0, 1, 0},
-                {0, 0, 0, 1}};
+    for(int i = 0; i < N; i++){
+        for(int j = 0; j < M; j++){
+            cin >> integer;
+            A[i][j] = integer;
+        }
+    }
+
+    for(int i = 0; i < M; i++){
+        for(int j = 0; j < N; j++){
+            cin >> integer;
+            B[i][j] = integer;
+        }
+    }
+
+    // inicio tiempo.
+    auto inicio = chrono::high_resolution_clock::now();
     
     Matrix C = strassen(A, B);
 
-    cout << "Resultado de la multiplicación de matrices usando Strassen:\n";
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            cout << C[i][j] << " ";
-        }
-        cout << endl;
+    // fin tiempo.
+    auto fin = chrono::high_resolution_clock::now();
+
+    // Imprimir tiempo de ejecucion de la funcion "SelectionSort".
+    chrono::duration<double, milli> duracion = fin - inicio;
+    cout << "Tiempo de ejecucion de algoritmo Strassen: " << duracion.count() << endl;
+
+    ofstream archivosalida("resultado.txt");
+    if(!archivosalida){
+        cerr << "Error al abrir el archivo para escribir" << endl;
+        return -1;
     }
+
+    for (const auto& row : C) {
+        for (int val : row)
+            archivosalida << val << " ";
+        archivosalida << endl;
+    }
+    archivosalida.close();
 
     return 0;
 }
