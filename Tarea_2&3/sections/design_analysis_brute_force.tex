@@ -1,42 +1,74 @@
-\epigraph{\textit{``Indeed, brute force is a perfectly good technique in many cases; the real question is, can we use brute force in such a way that we avoid the worst-case behavior?''}}{--- \citeauthor{taocv3}, \citeyear{taocv3} \cite{taocv3}}
-
 \begin{algorithm}[H]
     \SetKwProg{myproc}{Procedure}{}{}
-    \SetKwFunction{AlgorithmName}{AlgorithmName}  % Cambia 'AlgorithmName' por el nombre del enfoque elegido
-    \SetKwFunction{AuxiliaryFunction}{AuxiliaryFunction}  % Función auxiliar de ejemplo
+    \SetKwFunction{FuerzaBruta}{Fuerza\_Bruta}
+    \SetKwFunction{AuxiliaryFunction}{AuxiliaryFunction}
     
     \DontPrintSemicolon
     \footnotesize
 
-    % Definición del algoritmo principal
-    \myproc{\AlgorithmName{S1, S2}}{
-    \uIf{S1 está vacía}{
-        \Return longitud de S2\;  % Return explícito si S1 está vacía
+    %% Funciones de costos para operaciones
+    \myproc{COSTO\_SUB(char a, char b)}{
+        $index1 \leftarrow obtener\_indice(a)$\;
+        $index2 \leftarrow obtener\_indice(b)$\;
+        $costo \leftarrow Matriz\_Costos\_Sustitucion[index1][index2]$\;
+        \Return costo\;
     }
-    \uElseIf{S2 está vacía}{
-        \Return longitud de S1\;  % Return explícito si S2 está vacía
-    }
-    \uElseIf{S1[0] = S2[0]}{
-        \Return \AlgorithmName{S1[1:], S2[1:]}  % Llamada recursiva
-    }
-    \Else{
-        % Ejemplo de llamado a una función auxiliar
-        $costo \leftarrow \AuxiliaryFunction{S1, S2}$\;
-        \Return costo\;  % Retornar el valor calculado
-    }
+    
+    \myproc{COSTO\_INS(char b)}{
+        $index \leftarrow obtener\_indice(b)$\;
+        $costo \leftarrow Arreglo\_Costos\_Insercion[index]$\;
+        \Return costo\;
     }
 
-    % Definición de la función auxiliar
-    \myproc{\AuxiliaryFunction{S1, S2}}{
-    % Acciones o cálculos auxiliares
-    \uIf{S1 y S2 son similares}{
-        \Return algún valor o costo\;  % Retornar el valor calculado por la función auxiliar
+    \myproc{COSTO\_DEL(char a)}{
+        $index \leftarrow obtener\_indice(a)$\;
+        $costo \leftarrow Arreglo\_Costos\_Eliminacion[index]$\;
+        \Return costo\;
     }
-    \Else{
-        % Llamar de nuevo a la función principal
-        \Return \AlgorithmName{S1 modificado, S2}\;  % Llamada recursiva y retorno del resultado
+
+    \myproc{COSTO\_TRANS(char a, char b)}{
+        $index1 \leftarrow obtener\_indice(a)$\;
+        $index2 \leftarrow obtener\_indice(b)$\;
+        $costo \leftarrow Matriz\_Costos\_Transposicion[index1][index2]$\;
+        \Return costo\;
     }
+    
+    % Algoritmo principal de Fuerza Bruta
+    \myproc{FuerzaBruta(S1, S2)}{
+        \uIf{S1 está vacía}{
+            \For{i \textbf{desde} 0 \textbf{hasta} longitud(S2)}{
+                $costo\_total += COSTO\_INS(S2[i])$\;    
+            }
+            \Return $costo\_total$\;
+        }
+        \uElseIf{S2 está vacía}{
+            \For{i \textbf{desde} 0 \textbf{hasta} longitud(S1)}{
+                $costo\_total += COSTO\_DEL(S1[i])$\;
+            }
+            \Return $costo\_total$\;
+        }
+        \uElseIf{S1[0] = S2[0]}{
+            \Return \FuerzaBruta{(S1[1:], S2[1:])}  % Llamada recursiva sin costo adicional
+        }
+        \Else{
+            % Calcular costos de operaciones posibles
+            $costo\_sustitucion \leftarrow COSTO\_SUB(S1[0], S2[0]) + \FuerzaBruta(S1[1:], S2[1:])$\;
+            $costo\_insercion \leftarrow COSTO\_INS(S2[0]) + \FuerzaBruta(S1, S2[1:])$\;
+            $costo\_eliminacion \leftarrow COSTO\_DEL(S1[0]) + \FuerzaBruta(S1[1:], S2)$\;
+
+            % Considerar transposición si aplicable
+            \uIf{longitud(S1) > 1 \textbf{y} longitud(S2) > 1 \textbf{y} S1[0] = S2[1] \textbf{y} S1[1] = S2[0]}{
+                $costo\_transposicion \leftarrow COSTO\_TRANS(S1[0], S1[1]) + \FuerzaBruta(S1[2:], S2[2:])$\;
+            }
+            \Else{
+                $costo\_transposicion \leftarrow \infty$;  % No hay transposición válida
+            }
+            
+            % Retornar el costo mínimo entre las operaciones
+            \Return $\min(costo\_sustitucion, costo\_insercion, costo\_eliminacion, costo\_transposicion)$\;
+        }
     }
-    \caption{Este es solo un ejemplo de cómo estructurar el pseudocódigo, con retornos explícitos y llamados a funciones.}
-    \label{alg:mi_algoritmo_1}
+    
+    \caption{Pseudocódigo del algoritmo de fuerza bruta para calcular la distancia mínima entre dos cadenas con costos variables.}
+    \label{alg:mi_algoritmo_fuerza_bruta}
 \end{algorithm}
