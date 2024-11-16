@@ -11,3 +11,16 @@ Este proceso puede visualizarse más fácilmente en el siguiente diagrama del á
  \begin{minipage}[t]{0.5\textwidth}
     \includegraphics[width=\textwidth]{images/ejemplo_fuerza_bruta.png}
  \end{minipage}
+
+ \begin{itemize}
+     \item \textbf{Análisis Temporal}
+     
+     El análisis temporal del algoritmo de Fuerza Bruta, en el peor de los casos, considera que se deben calcular los costos para cada carácter de la cadena S1. A medida que se avanza en cada carácter, se generan cuatro ramificaciones (una para cada operación: inserción, eliminación, sustitución y transposición), lo cual expande exponencialmente el árbol de decisiones. Si consideramos que la longitud de S1 es \( n \), entonces el árbol resultante tendrá aproximadamente \( 4^n \) nodos en el peor de los casos, dado que cada operación genera cuatro posibles caminos a seguir. Por lo tanto, la complejidad temporal del algoritmo es \( O(4^n) \), lo que lo convierte en un método ineficiente para cadenas largas debido a su crecimiento exponencial en tiempo de ejecución.
+
+    \item \textbf{Análisis Espacial}
+
+    En cuanto al análisis espacial, la cantidad de espacio requerida difiere del crecimiento temporal. En el algoritmo de Fuerza Bruta, cada llamada recursiva crea una copia de las cadenas restantes en la pila de ejecución, pero el almacenamiento de datos solo requiere guardar los caracteres de S1 y S2 en el nivel actual de la recursión. Esto significa que, en el primer nivel (la raíz del árbol de decisiones), se necesita espacio para \( n \) caracteres. A medida que se desciende en el árbol y se realizan llamadas recursivas, el espacio utilizado por cada nivel se reduce, ya que las cadenas a comparar disminuyen en tamaño. 
+
+    Por lo tanto, en el último nivel, correspondiente a los nodos hoja, se almacenan únicamente las operaciones finales sobre caracteres individuales. Esto implica que el espacio máximo en la pila de ejecución está limitado por la profundidad del árbol, que es \( n \), resultando en una complejidad espacial de \( O(n) \).
+
+ \end{itemize}
