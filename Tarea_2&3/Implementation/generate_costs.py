@@ -3,17 +3,15 @@ import random
 # Create datasets for differents files relationated with a operational cost.
 # COSTS x OPERATION:
 
-# 3.-Matriz de costos para "cost_delete.txt":
+# 1.-Matriz de costos para "cost_delete.txt":
 with open("./cost_delete.txt", 'w') as file:
     for i in range(26):
-        #file.write(f"{random.randint(1,5)} ")
-        file.write("%d " %1)
+        file.write(f"{random.randint(1,5)} ")
 
-# 3.-Matriz de costos para "cost_insert.txt":
+# 2.-Matriz de costos para "cost_insert.txt":
 with open("./cost_insert.txt", 'w') as file:
     for i in range(26):
-        #file.write(f"{random.randint(1,5)} ")
-        file.write("%d " %1)
+        file.write(f"{random.randint(1,5)} ")
 
 # 3.-Matriz de costos para "cost_replace.txt":
 with open("./cost_replace.txt", 'w') as file:
@@ -22,8 +20,7 @@ with open("./cost_replace.txt", 'w') as file:
             if (i == j):
                 file.write("%d " %0)
             else:
-                #file.write(f"{random.randint(1,5)} ")
-                file.write("%d " %2)
+                file.write(f"{random.randint(1,5)} ")
         file.write("\n")
     file.write("\n")
 
@@ -34,7 +31,6 @@ with open("./cost_transpose.txt", 'w') as file:
             if (i == j):
                 file.write("%d " %0)
             else:
-                #file.write(f"{random.randint(1,5)} ")
-                file.write("%d " %1)
+                file.write(f"{random.randint(1,5)} ")
         file.write("\n")
     file.write("\n")
