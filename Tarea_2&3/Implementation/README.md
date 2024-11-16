@@ -14,7 +14,7 @@ En este archivo, se puede ajustar el rango de valores generados aleatoriamente m
 
 Las modificaciones se deben realizar en los bloques de código correspondientes, los cuales están separados según el archivo de costos que se genera. Por ejemplo:
 
-![Ejemplo de bloques](./images/image.png)
+![Ejemplo de bloques](./Images/image.png)
 
 En la imagen, se aprecian dos bloques. Si se modifica la función `random.randint()` del bloque inferior, se estarían alterando los posibles costos para la operación de **sustitución (replace)**. Por el contrario, si se modifica el bloque superior, se estarían ajustando los costos para la operación de **inserción (insert)**.
 
