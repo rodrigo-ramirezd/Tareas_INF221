@@ -3,11 +3,44 @@
 
 \subsubsection{Descripción de la solución recursiva}
 
-La solución por programación dinámica se implementa usando una estrategia de tabulación (enfoque \textit{Bottom-Up}), en la cual se utiliza una matriz para almacenar los costos de cada operación de edición (inserción, eliminación, sustitución y transposición) entre caracteres de las cadenas \texttt{S1} y \texttt{S2}. La matriz tiene dimensiones \( 4 \times N \), donde \( N \) representa la longitud de \texttt{S1} y el valor 4 corresponde a las cuatro operaciones posibles.
+La solución por programación dinámica se implementa utilizando una estrategia de tabulación (\textit{Bottom\-Up}), que calcula de forma iterativa los costos mínimos necesarios para transformar una cadena \( S1 \) en otra \( S2 \). Este enfoque optimiza el cálculo al evitar la recalculación de subproblemas, almacenando los resultados parciales en una matriz de costos.
 
-Para calcular la distancia mínima, se rellena la matriz por columnas. Cada columna representa el costo acumulado de transformar un carácter de \texttt{S1} en el carácter correspondiente de \texttt{S2} mediante una de las operaciones. El primer elemento de cada columna se inicializa en 0 si los caracteres de \texttt{S1} y \texttt{S2} son iguales, ya que no requiere ninguna operación; en caso contrario, se calcula su costo.
+La matriz de costos tiene dimensiones \( N \times M \), donde \( N \) es la longitud de \( S1 \) y \( M \) es la longitud de \( S2 \). Cada celda \( dp[i][j] \) en la matriz representa el costo mínimo para transformar el prefijo o substring \( S1[0..i-1] \) en el prefijo \( S2[0..j-1] \). Este costo se calcula considerando cuatro operaciones posibles: \textit{Inserción}, \textit{Eliminación}, \textit{Sustitución}, 
+\textit{Transposición} (si es que es aplicable).
 
-Para la siguiente fila (operación de costo mínimo para el mismo carácter), se evalúa el costo y se almacena el mínimo entre el costo calculado y el costo acumulado de la operación anterior. Este proceso asegura que cada columna contenga el costo mínimo de las cuatro operaciones para un carácter dado, y además, se suma el costo acumulado de la columna anterior para reflejar el costo de transformación secuencial. Al finalizar, el valor en la última celda de la matriz representa el costo mínimo o distancia de edición entre las dos cadenas.
+\paragraph{Inicialización}
+Se definen los valores iniciales para los casos base:
+\begin{itemize}
+    \item \( dp[i][0] \): El costo de transformar los primeros \( i \) caracteres de \( S1 \) en una cadena vacía es simplemente el costo acumulado de eliminar esos \( i \) caracteres.
+    \item \( dp[0][j] \): El costo de transformar una cadena vacía en los primeros \( j \) caracteres de \( S2 \) es el costo acumulado de insertar esos \( j \) caracteres.
+\end{itemize}
+
+\paragraph{Relleno de la Matriz}
+La matriz se rellena iterativamente siguiendo el orden \( dp[i][j] \), donde cada celda considera las cuatro operaciones posibles:
+\begin{enumerate}
+    \item \textbf{Inserción:} El costo de insertar \( S2[j-1] \) en \( S1[0..i-1] \) y sumar el costo mínimo previo \( dp[i][j-1] \).
+    \item \textbf{Eliminación:} El costo de eliminar \( S1[i-1] \) y sumar el costo mínimo previo \( dp[i-1][j] \).
+    \item \textbf{Sustitución:} Si \( S1[i-1] \neq S2[j-1] \), el costo de sustituir \( S1[i-1] \) por \( S2[j-1] \), más el costo previo \( dp[i-1][j-1] \). Si los caracteres son iguales, no hay costo adicional.
+    \item \textbf{Transposición:} Si los caracteres adyacentes entre \( S1 \) y \( S2 \) están intercambiados (\( S1[i-1] = S2[j-2] \) y \( S1[i-2] = S2[j-1] \)), se considera el costo de transponerlos, sumado al costo previo \( dp[i-2][j-2] \).
+\end{enumerate}
+
+\paragraph{Propagación de Costos}
+El cálculo en cada celda asegura que el valor almacenado en \( dp[i][j] \) sea el mínimo entre los costos de las operaciones disponibles. Este proceso garantiza que:
+\begin{itemize}
+    \item Cada subproblema (transformar un prefijo de \( S1 \) en un prefijo de \( S2 \)) se resuelve óptimamente antes de ser usado en cálculos posteriores.
+    \item Al finalizar, el valor \( dp[N][M] \) en la esquina inferior derecha de la matriz contiene el costo mínimo total para transformar \( S1 \) en \( S2 \).
+\end{itemize}
+
+\paragraph{Ejemplo}
+Supongamos \( S1 = \texttt{'amores'} \) y \( S2 = \texttt{'amaras'} \):
+\begin{itemize}
+    \item Se inicializan los casos base: costos acumulados para transformar una cadena en vacío.
+    \item En cada celda, se consideran las operaciones mencionadas y se selecciona el mínimo costo.
+    \item La matriz resultante tiene el costo total mínimo \( dp[6][6] \), que es la distancia de edición extendida entre las dos cadenas.
+\end{itemize}
+
+Este enfoque aprovecha la naturaleza recursiva del problema mientras reduce la redundancia mediante almacenamiento en la matriz, logrando una complejidad temporal de \( O(N \cdot M) \) y una complejidad espacial de \( O(N \cdot M) \).
+
 
 \subsubsection{Relación de recurrencia}
 
@@ -63,10 +96,8 @@ La estructura de datos utilizada es una matriz bidimensional \( D[i][j] \), dond
                 $costo\_del \leftarrow D[i-1][j] + \text{COSTO\_DEL}(S1[i-1])$\;
                 $costo\_ins \leftarrow D[i][j-1] + \text{COSTO\_INS}(S2[j-1])$\;
                 $costo\_sub \leftarrow D[i-1][j-1] + \text{COSTO\_SUB}(S1[i-1], S2[j-1])$\;
-                
                 \uIf{$i > 1 \land j > 1 \land S1[i-1] = S2[j-2] \land S1[i-2] = S2[j-1]$}{
-                    $costo\_trans \leftarrow D[i-2][j-2] + \text{COSTO\_TRANS}(S1[i-2], S1[i-1])$\;
-                }
+                    $costo\_trans \leftarrow D[i-2][j-2] + \text{COSTO\_TRANS}(S1[i-2], S1[i-1])$\;}
                 \Else{
                     $costo\_trans \leftarrow \infty$\;
                 }

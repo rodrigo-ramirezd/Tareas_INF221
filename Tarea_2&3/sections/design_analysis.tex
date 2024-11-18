@@ -6,11 +6,8 @@ Por ejemplo, consideremos las palabras S1 = 'amores' y S2 = 'amaras'. Al compara
 
 Este proceso continúa a medida que avanzamos en las cadenas, y al comparar el quinto carácter de S1 'e' con el quinto de S2 'a', cada una de las cuatro ramificaciones previas vuelve a generar otras cuatro, ya que cada rama evalúa nuevamente las cuatro operaciones posibles. Esto resulta en un árbol de decisiones con 16 nodos hoja hasta este punto.
 
-Este proceso puede visualizarse más fácilmente en el siguiente diagrama del árbol resultante, que ilustra el crecimiento exponencial de las llamadas recursivas en el enfoque de Fuerza Bruta:
- 
- \begin{minipage}[t]{0.5\textwidth}
-    \includegraphics[width=\textwidth]{images/ejemplo_fuerza_bruta.png}
- \end{minipage}
+Este proceso puede visualizarse más fácilmente en la siguiente \cref{fig:arbol-fuerza-bruta} del diagrama del árbol resultante, que ilustra el crecimiento exponencial de las llamadas recursivas en el enfoque de Fuerza Bruta:
+
 
  \begin{itemize}
      \item \textbf{Análisis Temporal}
@@ -24,3 +21,11 @@ Este proceso puede visualizarse más fácilmente en el siguiente diagrama del á
     Por lo tanto, en el último nivel, correspondiente a los nodos hoja, se almacenan únicamente las operaciones finales sobre caracteres individuales. Esto implica que el espacio máximo en la pila de ejecución está limitado por la profundidad del árbol, que es \( n \), resultando en una complejidad espacial de \( O(n) \).
 
  \end{itemize}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/ejemplo_fuerza_bruta.png}
+    \caption{Diagrama del arbol implicito que resulta de la ejecucion del prgrama \textit{brute\_fi.py}.}
+    \label{fig:arbol-fuerza-bruta}
+ \end{figure}
+ 

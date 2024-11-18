@@ -1,8 +1,37 @@
-\begin{mdframed}
-    \textbf{La extensión máxima para esta sección es de 6 página.}
-\end{mdframed}
+\epigraph{``\textit{Non-reproducible single occurrences are of no significance to science.}''}{---\citeauthor{popper2005logic}, \citeyear{popper2005logic} \cite{popper2005logic}}
 
+En esta sección de Experimentos, analizaremos y compararemos los tiempos de ejecución y la memoria utilizada por los algoritmos implementados, utilizando gráficos que nos ayuden a visualizar las diferencias significativas entre los enfoques de \textit{Fuerza Bruta} y \textit{Programación Dinámica}. 
 
-\epigraph{``\textit{Non-reproducible single occurrences are of no significance to
-science.}''}{---\citeauthor{popper2005logic},\citeyear{popper2005logic} \cite{popper2005logic}}
-En la sección de Experimentos, es fundamental detallar la infraestructura utilizada para asegurar la reproducibilidad de los resultados, un principio clave en cualquier experimento científico. Esto implica especificar tanto el hardware (por ejemplo, procesador Intel Core i7-9700K, 3.6 GHz, 16 GB RAM DDR4, almacenamiento SSD NVMe) como el entorno software (sistema operativo Ubuntu 20.04 LTS, compilador g++ 9.3.0, y cualquier librería relevante). Además, se debe incluir una descripción clara de las condiciones de entrada, los parámetros utilizados y los resultados obtenidos, tales como tiempos de ejecución y consumo de memoria, que permitan a otros replicar los experimentos en entornos similares. \textit{La replicabilidad es un aspecto crítico para validar los resultados en la investigación científica computacional} \cite{inbookFonseca}.
+\subsubsection{Configuración de los Experimentos}
+
+La recopilación de datos se realiza desde el momento en que se llaman las funciones implementadas en los archivos correspondientes. Estas funciones reciben como parámetros dos cadenas, \( S1 \) y \( S2 \), que representan los datos de entrada. Una vez que la función finaliza su ejecución, se obtienen los siguientes datos de salida:
+- La distancia mínima necesaria para transformar \( S1 \) en \( S2 \).
+- El tiempo de ejecución medido en segundos y microsegundos.
+- La cantidad de memoria gestionada en bytes, recopilada mediante la herramienta \textbf{Valgrind} en el campo \textit{bytes allocated}.
+
+Un ejemplo de ejecución se puede observar en la \cref{fig:ejemplo-ejecución}:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Tarea_2&3//images/ejemplo_ejecucion.png}
+    \caption{Ejemplo de la ejecución del programa con sus respectivas entradas y salidas.}
+    \label{fig:ejemplo-ejecución}
+\end{figure}
+
+\subsubsection{Entorno de Pruebas}
+
+Para llevar a cabo los experimentos, se utilizó el siguiente hardware y software:
+
+\textbf{Hardware:}
+  - Procesador: Intel Core i5-5200U, 2.20 GHz.
+  - Memoria RAM: 12 GB.
+  - Almacenamiento: Sin SSD.
+
+\textbf{Software:}
+  - Sistema Operativo: Windows 10.
+  - Terminal: Ubuntu 22.04.3 LTS (en entorno WSL).
+  - Compilador: \texttt{g++ 11.4.0}.
+  - Librerías utilizadas:
+    \texttt{<bits/stdc++.h>}, \texttt{<sys/time.h>}
+
+Esta configuración asegura una ejecución reproducible de los experimentos, permitiendo contrastar los resultados en términos de tiempos de ejecución y uso de memoria bajo condiciones controladas.

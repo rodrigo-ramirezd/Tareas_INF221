@@ -7,20 +7,21 @@ DYNAMIC_PROG_EXEC = dynamic_programming
 # Flags de compilación
 CXX = g++
 CXXFLAGS = -Wall
+CXXVALGRIND = valgrind --leak-check=yes
 
 # Compilar y ejecutar brute_force
 compilar_brute_force: $(BRUTE_FORCE_SRC)
-	$(CXX) $(CXXFLAGS) $< -o $(BRUTE_FORCE_EXEC)
+	$(CXX) -g $(CXXFLAGS) $< -o $(BRUTE_FORCE_EXEC)
 
 ejecutar_brute_force: $(BRUTE_FORCE_EXEC)
-	./$(BRUTE_FORCE_EXEC)
+	$(CXXVALGRIND) ./$(BRUTE_FORCE_EXEC)
 
 # Compilar y ejecutar dynamic_programming
 compilar_dynamic_programming: $(DYNAMIC_PROG_SRC)
-	$(CXX) $(CXXFLAGS) $< -o $(DYNAMIC_PROG_EXEC)
+	$(CXX) -g $(CXXFLAGS) $< -o $(DYNAMIC_PROG_EXEC)
 
 ejecutar_dynamic_programming: $(DYNAMIC_PROG_EXEC)
-	./$(DYNAMIC_PROG_EXEC)
+	$(CXXVALGRIND) ./$(DYNAMIC_PROG_EXEC)
 
 # Regla general para limpiar ejecutables
 clean:

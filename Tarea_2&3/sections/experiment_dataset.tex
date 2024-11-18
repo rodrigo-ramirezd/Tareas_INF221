@@ -1,12 +1,20 @@
-\begin{mdframed}
-    \textbf{La extensión máxima para esta sección es de 2 páginas.}
-\end{mdframed}
-Es importante generar varias muestras con características similares para una misma entrada, por ejemplo, variando tamaño del input dentro de lo que les permita la infraestructura utilizada en ests informe, con el fin de capturar una mayor diversidad de casos y obtener un análisis más completo del rendimiento de los algoritmos.
+Para los casos de prueba o dataset, se hace uso del lenguaje de programación Python para facilitar la generación automática de datos en archivos \texttt{.txt}, los cuales se utilizan como datos de entrada para los programas \texttt{brute\_force.cpp} y \texttt{dynamic\_programming.cpp}.
 
-\begin{mdframed}
-    Aunque la implementación de los algoritmos debe ser realizada en C++, se recomienda aprovechar otros lenguajes como Python para automatizar la generación de casos de prueba, ya que es más amigable para crear gráficos y realizar análisis de los resultados. Python, con sus bibliotecas como \texttt{matplotlib} o \texttt{pandas}, facilita la visualización de los datos obtenidos de las ejecuciones de los distintos algoritmo bajo diferentes escenarios.
-\end{mdframed}    
+El programa \textsc{generate\_datasets.py} genera automáticamente 5 archivos \texttt{.txt} para cada una de las tres categorías de casos de prueba definidas:
 
-\begin{mdframed}    
-    Debido a la naturaleza de las pruebas en un entorno computacional, los tiempos de ejecución pueden variar significativamente dependiendo de factores externos, como la carga del sistema en el momento de la ejecución. Por lo tanto, para obtener una medida más representativa, siempre es recomendable ejecutar múltiples pruebas con las mismas características de entrada y calcular el promedio de los resultados.
-\end{mdframed}
+\subsubsection{Transpose Datasets}
+En esta categoría se generan 5 archivos con el prefijo \texttt{input\_transpose}, enumerados del 1 al 5. Los strings en estos archivos se ordenan de menor a mayor longitud, y todos los problemas planteados pueden resolverse exclusivamente mediante operaciones de transposición. Sin embargo, no se garantiza que la solución óptima obtenida por los programas implique únicamente transposiciones, ya que esto dependerá de los costos asociados a cada operación y de si estas resultan más convenientes.
+
+\subsubsection{Semi-Ordered Datasets}
+En esta categoría, la mitad del string \( S1 \) será idéntica a la otra mitad del string \( S2 \). Esto permite observar cómo se comportan los enfoques algorítmicos de \textit{Fuerza Bruta} y \textit{Programación Dinámica} en casos parcialmente ordenados. Los archivos generados llevan el prefijo \texttt{input\_semiordered}.
+
+\subsubsection{Disordered Datasets}
+Por último, esta categoría contiene datasets donde \( S1 \) y \( S2 \) son completamente desordenados, generados de manera aleatoria. Los archivos generados llevan el prefijo \texttt{input\_disordered}. En este caso, es probable que el enfoque de \textit{Fuerza Bruta} tarde significativamente más tiempo en procesar strings con una longitud superior a 16 caracteres, debido al crecimiento exponencial de su árbol implícito de llamadas recursivas y la necesidad de explorarlo en profundidad.
+
+Ver la siguiente \cref{fig:ejemplo-datasets}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Tarea_2&3//images/ejemplo_datasets.png}
+    \caption{Ejemplo de los archivos .txt generados por el archivo \textit{generate\_datasets.py}.}
+    \label{fig:ejemplo-datasets}
+\end{figure}
